@@ -9,13 +9,44 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CheckCircle } from "lucide-react"
+import Link from "next/link"
 
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
 })
+interface ServiceBannerProps{
 
+}
+const ServiceBanner:React.FC<ServiceBannerProps> = () =>{
+  return(
+             <div className="relative h-[350px] md:h-[420px] w-full overflow-hidden">
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/50" />
+        {/* Content Wrapper */}
+        <div className="absolute inset-0 flex flex-col items-start justify-center text-white px-8 md:px-20 z-10">
+          {/* Breadcrumb */}
+          <div className="flex items-center gap-3 mb-4">
+            <Link
+              href="/"
+              className="px-4 py-1 rounded-md text-sm hover:bg-white/20 transition border-none"
+            >
+              Home
+            </Link>
+            <span className="text-gray-300">/</span>
+            <Link
+              href=""
+              className="px-4 py-1 rounded-md text-sm hover:bg-white/20 transition border-none"
+            >
+              Price
+            </Link>
+          </div>
+          <h1 className="text-4xl md:text-6xl font-bold">FAQ</h1>
+        </div>
+      </div>
+  )
+}
 interface ServicePriceCardProps {
   icon: React.ElementType
   title: string
@@ -27,6 +58,7 @@ const ServicePriceCard: React.FC<ServicePriceCardProps> = ({ icon: Icon, title, 
   const [isHovered, setIsHovered] = useState(false)
 
   return (
+    <>
     <Card
       className="relative flex flex-col items-center justify-center p-6 text-center overflow-hidden group cursor-pointer h-[200px]"
       onMouseEnter={() => setIsHovered(true)}
@@ -51,6 +83,7 @@ const ServicePriceCard: React.FC<ServicePriceCardProps> = ({ icon: Icon, title, 
         <Button className="w-full bg-green-600 hover:bg-green-700">Order Now</Button>
       </div>
     </Card>
+    </>
   )
 }
 
@@ -194,7 +227,10 @@ const PricingSection = () => {
   const [activeTab, setActiveTab] = useState("full");
 
   return (
+    <>
+    <ServiceBanner />
     <section className="py-16 bg-white">
+      
       <div className="max-w-7xl mx-auto px-4">
         {/* Top Section: Service Price Cards */}
         <div className="text-center mb-12">
@@ -376,6 +412,7 @@ const PricingSection = () => {
         </div>
       </div>
     </section>
+    </>
   )
 }
 

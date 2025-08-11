@@ -4,9 +4,7 @@ import NotFound from '@/component/NotFound';
 export default function HomePage() {
   return (
     <>
-      <Navbar />
       <NotFound/>
-      <Footer/>
     </>
   );
 }

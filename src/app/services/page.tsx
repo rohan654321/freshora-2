@@ -9,13 +9,11 @@ import ServicesGrid from "@/component/ServicesGrid";
 export default function Services() {
   return (
     <>
-      <Navbar />
       <ServiceBanner />
       <ServicesGrid />
       <LaundryService />
       <FeaturesComponent />
       <CouponCarousel />
-      <Footer />
     </>
   );
 }

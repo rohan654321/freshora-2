@@ -7,7 +7,7 @@ export default function NotFound() {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100 px-6 text-center">
       <Image
-        src="/laundry-404.png" // Replace with your own image in the public folder
+        src="/images/box02-img01.webp" // Replace with your own image in the public folder
         alt="Laundry Not Found"
         width={300}
         height={300}

@@ -1,47 +1,169 @@
-import { notFound } from 'next/navigation';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Clock, DollarSign, CheckCircle, Star, Phone, Calendar } from 'lucide-react';
-import { getServiceBySlug } from '../../../lib/services-data';
+"use client"
+
+import { useState } from "react"
+import { notFound } from "next/navigation"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { ArrowLeft, Star, Plus, Minus, ShoppingCart } from "lucide-react"
+import { getServiceBySlug } from "../../../lib/services-data"
+import { useCart } from "../../context/cart-context"
 
 interface ServicePageProps {
   params: {
-    slug: string;
-  };
+    slug: string
+  }
+}
+
+interface ServiceItem {
+  id: string
+  name: string
+  price: number
+  description: string
+}
+
+const serviceItems = {
+  "laundry-services": {
+    men: [
+      { id: "m1", name: "T-Shirts", price: 3, description: "Cotton t-shirts, polo shirts" },
+      { id: "m2", name: "Shirts (Formal)", price: 5, description: "Dress shirts, business shirts" },
+      { id: "m3", name: "Pants/Trousers", price: 6, description: "Casual pants, formal trousers" },
+      { id: "m4", name: "Jeans", price: 7, description: "Denim jeans, casual wear" },
+      { id: "m5", name: "Suits", price: 15, description: "Two-piece suits, blazers" },
+      { id: "m6", name: "Underwear", price: 2, description: "Undergarments, socks" },
+    ],
+    women: [
+      { id: "w1", name: "T-Shirts/Tops", price: 3, description: "Casual tops, blouses" },
+      { id: "w2", name: "Dresses", price: 8, description: "Casual and formal dresses" },
+      { id: "w3", name: "Pants/Jeans", price: 6, description: "Trousers, jeans, leggings" },
+      { id: "w4", name: "Skirts", price: 5, description: "Mini, midi, maxi skirts" },
+      { id: "w5", name: "Blouses", price: 6, description: "Formal and casual blouses" },
+      { id: "w6", name: "Underwear/Lingerie", price: 2, description: "Undergarments, bras" },
+    ],
+    children: [
+      { id: "c1", name: "T-Shirts", price: 2, description: "Kids casual t-shirts" },
+      { id: "c2", name: "Pants/Shorts", price: 3, description: "Kids pants and shorts" },
+      { id: "c3", name: "Dresses", price: 4, description: "Girls dresses" },
+      { id: "c4", name: "School Uniforms", price: 5, description: "School shirts, pants" },
+      { id: "c5", name: "Pajamas", price: 3, description: "Sleepwear, nightwear" },
+      { id: "c6", name: "Underwear", price: 1, description: "Kids undergarments" },
+    ],
+  },
+  "dry-cleaning-services": {
+    men: [
+      { id: "m1", name: "Suits", price: 20, description: "Two-piece business suits" },
+      { id: "m2", name: "Blazers", price: 15, description: "Sport coats, blazers" },
+      { id: "m3", name: "Dress Shirts", price: 8, description: "Formal dress shirts" },
+      { id: "m4", name: "Ties", price: 5, description: "Neckties, bow ties" },
+      { id: "m5", name: "Coats/Jackets", price: 25, description: "Winter coats, leather jackets" },
+    ],
+    women: [
+      { id: "w1", name: "Dresses", price: 18, description: "Formal and cocktail dresses" },
+      { id: "w2", name: "Blouses", price: 10, description: "Silk and delicate blouses" },
+      { id: "w3", name: "Skirts", price: 12, description: "Formal and business skirts" },
+      { id: "w4", name: "Coats", price: 30, description: "Winter coats, fur coats" },
+      { id: "w5", name: "Evening Gowns", price: 35, description: "Formal evening wear" },
+    ],
+    children: [
+      { id: "c1", name: "Formal Wear", price: 12, description: "Kids formal suits, dresses" },
+      { id: "c2", name: "Coats", price: 15, description: "Kids winter coats" },
+      { id: "c3", name: "School Blazers", price: 10, description: "School uniform blazers" },
+    ],
+  },
 }
 
 export default function ServicePage({ params }: ServicePageProps) {
-  const service = getServiceBySlug(params.slug);
+  const service = getServiceBySlug(params.slug)
+  const { addToCart, getTotalItems } = useCart()
+  const [quantities, setQuantities] = useState<{ [key: string]: number }>({})
 
   if (!service) {
-    notFound();
+    notFound()
   }
+
+  const items = serviceItems[params.slug as keyof typeof serviceItems] || { men: [], women: [], children: [] }
+
+  const updateQuantity = (itemId: string, change: number) => {
+    const newQuantity = Math.max(0, (quantities[itemId] || 0) + change)
+    setQuantities((prev) => ({ ...prev, [itemId]: newQuantity }))
+  }
+
+  const handleAddToCart = (item: ServiceItem, category: string) => {
+    const quantity = quantities[item.id] || 0
+    if (quantity === 0) return
+
+    addToCart(
+      {
+        id: `${params.slug}-${item.id}`,
+        name: item.name,
+        category: category,
+        price: item.price,
+        serviceType: service.title,
+      },
+      quantity,
+    )
+
+    // Reset quantity after adding to cart
+    setQuantities((prev) => ({ ...prev, [item.id]: 0 }))
+  }
+
+  const ItemCard = ({ item, category }: { item: ServiceItem; category: string }) => (
+    <Card className="p-4">
+      <div className="flex justify-between items-start mb-2">
+        <div className="flex-1">
+          <h4 className="font-semibold text-lg">{item.name}</h4>
+          <p className="text-sm text-gray-600 mb-2">{item.description}</p>
+          <p className="text-green-600 font-bold text-lg">${item.price}</p>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between mt-4">
+        <div className="flex items-center gap-3">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => updateQuantity(item.id, -1)}
+            disabled={(quantities[item.id] || 0) === 0}
+          >
+            <Minus className="h-4 w-4" />
+          </Button>
+          <span className="w-8 text-center font-semibold">{quantities[item.id] || 0}</span>
+          <Button variant="outline" size="sm" onClick={() => updateQuantity(item.id, 1)}>
+            <Plus className="h-4 w-4" />
+          </Button>
+        </div>
+
+        <Button
+          onClick={() => handleAddToCart(item, category)}
+          disabled={(quantities[item.id] || 0) === 0}
+          className="bg-green-600 hover:bg-green-700"
+        >
+          Add to Cart
+        </Button>
+      </div>
+    </Card>
+  )
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-6">
-          <Link 
-            href="/services" 
-            className="inline-flex items-center gap-2 text-green-600 hover:text-green-700 mb-4"
-          >
+          <Link href="/services" className="inline-flex items-center gap-2 text-green-600 hover:text-green-700 mb-4">
             <ArrowLeft className="h-4 w-4" />
             Back to Services
           </Link>
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-                {service.title}
-              </h1>
+              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">{service.title}</h1>
               <div className="flex items-center gap-4">
                 <div className="flex items-center">
                   {[...Array(5)].map((_, i) => (
-                    <Star 
-                      key={i} 
-                      className={`h-4 w-4 ${i < service.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} 
+                    <Star
+                      key={i}
+                      className={`h-4 w-4 ${i < service.rating ? "text-yellow-400 fill-current" : "text-gray-300"}`}
                     />
                   ))}
                   <span className="ml-2 text-sm text-gray-600">
@@ -53,113 +175,68 @@ export default function ServicePage({ params }: ServicePageProps) {
                 </Badge>
               </div>
             </div>
-            <div className="flex gap-3">
-              <Button className="bg-green-600 hover:bg-green-700">
-                <Calendar className="h-4 w-4 mr-2" />
-                Book Now
-              </Button>
-              <Button variant="outline">
-                <Phone className="h-4 w-4 mr-2" />
-                Call Us
-              </Button>
-            </div>
+
+            {/* Cart Link */}
+            {getTotalItems() > 0 && (
+              <Link href="/cart">
+                <Button className="bg-green-600 hover:bg-green-700">
+                  <ShoppingCart className="h-4 w-4 mr-2" />
+                  View Cart ({getTotalItems()})
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Hero Image */}
-            <div className="relative h-64 md:h-80 rounded-lg overflow-hidden">
-              <img 
-                src={service.image || "/placeholder.svg"} 
-                alt={service.title}
-                className="w-full h-full object-cover"
-              />
-            </div>
+        {/* Service Description */}
+        <Card className="mb-8">
+          <CardContent className="p-6">
+            <h2 className="text-2xl font-bold mb-4">About This Service</h2>
+            <p className="text-gray-600 leading-relaxed">{service.fullDescription}</p>
+          </CardContent>
+        </Card>
 
-            {/* Description */}
-            <Card>
-              <CardContent className="p-6">
-                <h2 className="text-2xl font-bold mb-4">About This Service</h2>
-                <p className="text-gray-600 leading-relaxed mb-6">
-                  {service.fullDescription}
-                </p>
-              </CardContent>
-            </Card>
+        {/* Service Items by Category */}
+        <Card>
+          <CardContent className="p-6">
+            <h2 className="text-2xl font-bold mb-6">Select Items & Quantities</h2>
 
-            {/* Features */}
-            <Card>
-              <CardContent className="p-6">
-                <h2 className="text-2xl font-bold mb-4">What's Included</h2>
-                <div className="grid md:grid-cols-2 gap-3">
-                  {service.features.map((feature, index) => (
-                    <div key={index} className="flex items-center gap-3">
-                      <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
-                      <span className="text-gray-600">{feature}</span>
-                    </div>
+            <Tabs defaultValue="men" className="w-full">
+              <TabsList className="grid w-full grid-cols-3">
+                <TabsTrigger value="men">Men's Clothing</TabsTrigger>
+                <TabsTrigger value="women">Women's Clothing</TabsTrigger>
+                <TabsTrigger value="children">Children's Clothing</TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="men" className="mt-6">
+                <div className="grid md:grid-cols-2 gap-4">
+                  {items.men.map((item) => (
+                    <ItemCard key={item.id} item={item} category="Men" />
                   ))}
                 </div>
-              </CardContent>
-            </Card>
+              </TabsContent>
 
-            {/* Process */}
-            <Card>
-              <CardContent className="p-6">
-                <h2 className="text-2xl font-bold mb-4">How It Works</h2>
-                <div className="space-y-4">
-                  {service.process.map((step, index) => (
-                    <div key={index} className="flex items-start gap-4">
-                      <div className="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold flex-shrink-0">
-                        {index + 1}
-                      </div>
-                      <p className="text-gray-600 pt-1">{step}</p>
-                    </div>
+              <TabsContent value="women" className="mt-6">
+                <div className="grid md:grid-cols-2 gap-4">
+                  {items.women.map((item) => (
+                    <ItemCard key={item.id} item={item} category="Women" />
                   ))}
                 </div>
-              </CardContent>
-            </Card>
-          </div>
+              </TabsContent>
 
-          {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Pricing Card */}
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex items-center gap-2 mb-4">
-                  <DollarSign className="h-5 w-5 text-green-500" />
-                  <h3 className="text-xl font-bold">Pricing</h3>
+              <TabsContent value="children" className="mt-6">
+                <div className="grid md:grid-cols-2 gap-4">
+                  {items.children.map((item) => (
+                    <ItemCard key={item.id} item={item} category="Children" />
+                  ))}
                 </div>
-                <div className="space-y-4">
-                  <div className="border rounded-lg p-4">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="font-semibold">Basic</span>
-                      <span className="text-xl font-bold text-green-600">
-                        {service.pricing.basic.price}
-                      </span>
-                    </div>
-                    <p className="text-sm text-gray-600">{service.pricing.basic.description}</p>
-                  </div>
-                  <div className="border rounded-lg p-4 border-green-200 bg-green-50">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="font-semibold">Premium</span>
-                      <span className="text-xl font-bold text-green-600">
-                        {service.pricing.premium.price}
-                      </span>
-                    </div>
-                    <p className="text-sm text-gray-600">{service.pricing.premium.description}</p>
-                  </div>
-                </div>
-                <Button className="w-full mt-4 bg-green-600 hover:bg-green-700">
-                  Get Started
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
+              </TabsContent>
+            </Tabs>
+          </CardContent>
+        </Card>
       </div>
     </div>
-  );
+  )
 }

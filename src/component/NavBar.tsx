@@ -25,7 +25,7 @@ const navItems: NavItem[] = [
   { title: "Home", href: "/" },
   {
     title: "About Us",
-    href: "#",
+    href: "/about",
     subItems: [
       { title: "Our Story", href: "/about/story" },
       { title: "Team", href: "/about/team" },
@@ -48,7 +48,7 @@ const navItems: NavItem[] = [
   },
   {
     title: "Blog",
-    href: "#",
+    href: "/Blogs",
     subItems: [
       { title: "Latest News", href: "/blog/latest" },
       { title: "Tips & Tricks", href: "/blog/tips" },

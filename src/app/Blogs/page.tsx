@@ -5,12 +5,10 @@ import LaundryService from '@/component/LaundryService';
 import Navbar from '@/component/NavBar';
 import NotFound from '@/component/NotFound';
 import ServiceCard from '@/component/ServiceCard';
-export default function HomePage() {
+export default function Blogs() {
   return (
     <>
-      <HeroSection/>
-      <LaundryExperience/>
-      <LaundryService/>
+      <NotFound/>
     </>
   );
 }

@@ -94,127 +94,127 @@ export default function FAQPage() {
   };
 
   return (
-    // <div>
-    //   {/* Header Section */}
-    //   <div className="relative h-[350px] md:h-[420px] w-full overflow-hidden">
-    //     {/* Overlay */}
-    //     <div className="absolute inset-0 bg-black/50" />
-    //     {/* Content Wrapper */}
-    //     <div className="absolute inset-0 flex flex-col items-start justify-center text-white px-8 md:px-20 z-10">
-    //       {/* Breadcrumb */}
-    //       <div className="flex items-center gap-3 mb-4">
-    //         <Link
-    //           href="/"
-    //           className="px-4 py-1 rounded-md text-sm hover:bg-white/20 transition border-none"
-    //         >
-    //           Home
-    //         </Link>
-    //         <span className="text-gray-300">/</span>
-    //         <Link
-    //           href="/services"
-    //           className="px-4 py-1 rounded-md text-sm hover:bg-white/20 transition border-none"
-    //         >
-    //           FAQ
-    //         </Link>
-    //       </div>
-    //       <h1 className="text-4xl md:text-6xl font-bold">FAQ</h1>
-    //     </div>
-    //   </div>
+    <div>
+      {/* Header Section */}
+      <div className="relative h-[350px] md:h-[420px] w-full overflow-hidden">
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/50" />
+        {/* Content Wrapper */}
+        <div className="absolute inset-0 flex flex-col items-start justify-center text-white px-8 md:px-20 z-10">
+          {/* Breadcrumb */}
+          <div className="flex items-center gap-3 mb-4">
+            <Link
+              href="/"
+              className="px-4 py-1 rounded-md text-sm hover:bg-white/20 transition border-none"
+            >
+              Home
+            </Link>
+            <span className="text-gray-300">/</span>
+            <Link
+              href="/services"
+              className="px-4 py-1 rounded-md text-sm hover:bg-white/20 transition border-none"
+            >
+              FAQ
+            </Link>
+          </div>
+          <h1 className="text-4xl md:text-6xl font-bold">FAQ</h1>
+        </div>
+      </div>
 
-    //   {/* FAQ Section */}
-    //   <section className="max-w-6xl mx-auto py-12 px-4">
-    //     <div className="text-center mb-10">
-    //       <p
-    //         className={`text-green-600 font-medium mb-2 text-center ${poppins.className}`}
-    //       >
-    //         [ Frequently Asked Questions ]
-    //       </p>
-    //       <h2 className="text-2xl md:text-3xl font-bold">
-    //         Reliable Answers to Our Most Common Questions
-    //       </h2>
-    //       <p className="text-gray-500 max-w-xl mx-auto mt-2">
-    //         We can answer as many as we can, save you time, water, heating and
-    //         electricity.
-    //       </p>
-    //     </div>
+      {/* FAQ Section */}
+      <section className="max-w-6xl mx-auto py-12 px-4">
+        <div className="text-center mb-10">
+          <p
+            className={`text-green-600 font-medium mb-2 text-center ${poppins.className}`}
+          >
+            [ Frequently Asked Questions ]
+          </p>
+          <h2 className="text-2xl md:text-3xl font-bold">
+            Reliable Answers to Our Most Common Questions
+          </h2>
+          <p className="text-gray-500 max-w-xl mx-auto mt-2">
+            We can answer as many as we can, save you time, water, heating and
+            electricity.
+          </p>
+        </div>
 
-    //     {/* Accordion */}
-    //     <div className="grid md:grid-cols-2 gap-8">
-    //       {faqData.map((category) => (
-    //         <div key={category.category}>
-    //           <h3 className="text-lg font-semibold mb-4">
-    //             {category.category}
-    //           </h3>
-    //           <div className="space-y-2">
-    //             {category.questions.map((item) => {
-    //               questionCounter++;
-    //               return (
-    //                 <div
-    //                   key={item.q}
-    //                   className="border rounded-md bg-white shadow-sm"
-    //                 >
-    //                   <button
-    //                     onClick={() => toggleAccordion(questionCounter)}
-    //                     className="w-full flex justify-between items-center px-4 py-3 text-left"
-    //                   >
-    //                     <span>{item.q}</span>
-    //                     <span className="text-xl">
-    //                       {openIndex === questionCounter ? "−" : "+"}
-    //                     </span>
-    //                   </button>
-    //                   {openIndex === questionCounter && (
-    //                     <div className="px-4 pb-3 text-gray-600 text-sm">
-    //                       {item.a}
-    //                     </div>
-    //                   )}
-    //                 </div>
-    //               );
-    //             })}
-    //           </div>
-    //         </div>
-    //       ))}
-    //     </div>
-    //   </section>
+        {/* Accordion */}
+        <div className="grid md:grid-cols-2 gap-8">
+          {faqData.map((category) => (
+            <div key={category.category}>
+              <h3 className="text-lg font-semibold mb-4">
+                {category.category}
+              </h3>
+              <div className="space-y-2">
+                {category.questions.map((item) => {
+                  questionCounter++;
+                  return (
+                    <div
+                      key={item.q}
+                      className="border rounded-md bg-white shadow-sm"
+                    >
+                      <button
+                        onClick={() => toggleAccordion(questionCounter)}
+                        className="w-full flex justify-between items-center px-4 py-3 text-left"
+                      >
+                        <span>{item.q}</span>
+                        <span className="text-xl">
+                          {openIndex === questionCounter ? "−" : "+"}
+                        </span>
+                      </button>
+                      {openIndex === questionCounter && (
+                        <div className="px-4 pb-3 text-gray-600 text-sm">
+                          {item.a}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
-    //   {/* Ask Your Question */}
-    //   <section className="bg-gray-50 py-12">
-    //     <div className="max-w-3xl mx-auto text-center">
-    //       <h3 className="text-2xl font-bold mb-2">Ask Your Question</h3>
-    //       <p className="text-gray-500 mb-6">
-    //         We look forward to helping you enjoy and maintain a clean, healthy
-    //         environment.
-    //       </p>
-    //       <form className="grid md:grid-cols-2 gap-4 text-left">
-    //         <input
-    //           type="text"
-    //           placeholder="Your name"
-    //           className="border rounded-md p-3 w-full"
-    //         />
-    //         <input
-    //           type="email"
-    //           placeholder="Email"
-    //           className="border rounded-md p-3 w-full"
-    //         />
-    //         <input
-    //           type="tel"
-    //           placeholder="Phone"
-    //           className="border rounded-md p-3 w-full"
-    //         />
-    //         <textarea
-    //           placeholder="Your question"
-    //           rows={3}
-    //           className="border rounded-md p-3 w-full md:col-span-2"
-    //         ></textarea>
-    //         <button
-    //           type="submit"
-    //           className="bg-green-600 hover:bg-green-700 text-white py-3 rounded-md md:col-span-2"
-    //         >
-    //           Submit Question
-    //         </button>
-    //       </form>
-    //     </div>
-    //   </section>
-    // </div>
-    <NotFound/>
+      {/* Ask Your Question */}
+      <section className="bg-gray-50 py-12">
+        <div className="max-w-3xl mx-auto text-center">
+          <h3 className="text-2xl font-bold mb-2">Ask Your Question</h3>
+          <p className="text-gray-500 mb-6">
+            We look forward to helping you enjoy and maintain a clean, healthy
+            environment.
+          </p>
+          <form className="grid md:grid-cols-2 gap-4 text-left">
+            <input
+              type="text"
+              placeholder="Your name"
+              className="border rounded-md p-3 w-full"
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              className="border rounded-md p-3 w-full"
+            />
+            <input
+              type="tel"
+              placeholder="Phone"
+              className="border rounded-md p-3 w-full"
+            />
+            <textarea
+              placeholder="Your question"
+              rows={3}
+              className="border rounded-md p-3 w-full md:col-span-2"
+            ></textarea>
+            <button
+              type="submit"
+              className="bg-green-600 hover:bg-green-700 text-white py-3 rounded-md md:col-span-2"
+            >
+              Submit Question
+            </button>
+          </form>
+        </div>
+      </section>
+    </div>
+
   );
 }

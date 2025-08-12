@@ -44,9 +44,9 @@ export default function CartPage() {
                  Home
                </Link>
                <span className="px-2">/</span>
-               <Link href="/services" className="hover:text-green-400">
+               <span className="hover:text-green-400">
                  Cart
-               </Link>
+               </span>
              </nav>
            
              <h1 className="text-4xl md:text-5xl font-bold text-white">Cart</h1>

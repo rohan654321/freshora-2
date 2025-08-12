@@ -11,11 +11,13 @@ export default function LaundryExperience() {
         
         {/* Left: Image */}
         <div className="relative flex-shrink-0">
-          <img
-            src="/images/img01.jpg"
-            alt="Laundry Woman"
-            className="rounded-lg shadow-lg"
-          />
+          <Image
+            src="/images/img01.jpg" // Ensure this image is in your `public/images` folder
+            alt="Laundry Experience"
+            width={600}
+            height={400}
+            className="rounded-lg shadow-lg w-full h-auto object-cover"/>
+          {/* Decorative badge */}
           <div className="absolute bottom-6 right-6 bg-green-600 text-white rounded-full w-20 h-20 flex flex-col items-center justify-center text-center">
             <span className="text-lg font-bold">25</span>
             <span className="text-[10px] text-center leading-tight">years of experience</span>

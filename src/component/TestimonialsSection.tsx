@@ -109,7 +109,8 @@ const TestimonialsSection = () => {
                                         <h4 className="title-block__title">{testimonial.title}</h4>
                                     </div>
                                     <blockquote>
-                                        <p className="quote-text">"{testimonial.quote}"</p>
+                                       {/* After */}
+<p className="quote-text">&ldquo;{testimonial.quote}&rdquo;</p>
                                         <p className="author-text">{testimonial.author}</p>
                                     </blockquote>
                                 </SwiperSlide>

@@ -64,7 +64,7 @@ const Navbar = () => {
   const [showForm, setShowForm] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const { getTotalItems } = useCart()
-  const [modalOpen, setModalOpen] = useState(false);
+  // Removed the unused 'modalOpen' state
 
   return (
     <header className="w-full bg-white border-b border-gray-200">
@@ -173,21 +173,16 @@ const Navbar = () => {
               )}
             </div>
           ))}
-         {/* <button
-            onClick={() => setShowForm(true)}
+          {/* Cleaned up mobile button */}
+          <button
+            onClick={() => {
+              setShowForm(true);
+              setMobileOpen(false); // Close menu on click
+            }}
             className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-3"
           >
             Schedule a Pickup
-          </button> */}
-           <div className="tt-col__item d-none d-md-block">
-                  <button 
-                    onClick={() => setModalOpen(true)}
-                    className="tt-btn"
-                  >
-                    <span className="mask">Schedule a Pickup</span>
-                    <div className="button">Schedule a Pickup</div>
-                  </button>
-                </div>
+          </button>
         </div>
       )}
 

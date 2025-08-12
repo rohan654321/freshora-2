@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { FaCheckCircle } from 'react-icons/fa';
-
+import Image from 'next/image';
 interface ServiceCardProps {
   id: number;
   image: string;
@@ -14,7 +14,15 @@ const ServiceCard: React.FC<ServiceCardProps> = ({  image, title, description, s
   return (
     <Link href={`/services/${slug}`}>
       <div className="bg-white shadow-md rounded-md overflow-hidden cursor-pointer transform transition-transform hover:scale-105 hover:shadow-lg">
-        <img src={image || "/placeholder.svg"} alt={title} className="w-full h-48 object-cover" />
+      {/* The parent div defines the size and acts as a positioning anchor*/ }
+<div className="relative w-full h-48">
+  <Image
+    src={image || "/placeholder.svg"}
+    alt={title}
+    fill
+    className="object-cover"
+  />
+</div>
         <div className="p-4 text-left">
           <div className="flex justify-start mb-4">
             <div className="bg-green-500 p-3 rounded-full text-white">

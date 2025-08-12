@@ -42,7 +42,7 @@ const ServiceBanner:React.FC<ServiceBannerProps> = () =>{
               Price
             </Link>
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold">FAQ</h1>
+          <h1 className="text-4xl md:text-6xl font-bold">Prices</h1>
         </div>
       </div>
   )

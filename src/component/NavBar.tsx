@@ -64,6 +64,7 @@ const Navbar = () => {
   const [showForm, setShowForm] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const { getTotalItems } = useCart()
+  const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <header className="w-full bg-white border-b border-gray-200">
@@ -76,7 +77,7 @@ const Navbar = () => {
         </div>
         <div className="flex gap-3 items-center text-sm">
           <span className="flex items-center gap-1">
-            <FaPhoneAlt className="text-green-500" />1 (800) 765-43-21
+            <FaPhoneAlt className="text-green-500" />+971 50 925 9667
           </span>
           <FaTwitter className="cursor-pointer" />
           <FaFacebookF className="cursor-pointer" />
@@ -89,7 +90,7 @@ const Navbar = () => {
       <div className="flex justify-between items-center px-4 sm:px-6 py-3 relative">
         {/* Logo */}
         <div className="text-xl sm:text-2xl font-bold">
-          <span className="text-green-600">Pro</span>
+          <span className="text-green-600">Freshora</span>
           <span className="text-black">Laundry</span>
         </div>
 
@@ -172,12 +173,21 @@ const Navbar = () => {
               )}
             </div>
           ))}
-          <button
+         {/* <button
             onClick={() => setShowForm(true)}
             className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-3"
           >
             Schedule a Pickup
-          </button>
+          </button> */}
+           <div className="tt-col__item d-none d-md-block">
+                  <button 
+                    onClick={() => setModalOpen(true)}
+                    className="tt-btn"
+                  >
+                    <span className="mask">Schedule a Pickup</span>
+                    <div className="button">Schedule a Pickup</div>
+                  </button>
+                </div>
         </div>
       )}
 

@@ -65,7 +65,7 @@ export default function HeroSection() {
       {/* Preloader */}
       {preloaderVisible && (
         <div className="absolute inset-0 flex justify-center items-center bg-white z-[100] text-4xl font-bold text-gray-800">
-          <span className="text-cyan-500">Freshora</span>Laundry
+          <span className="text-green-600">Freshora</span>Laundry
         </div>
       )}
 
@@ -81,54 +81,55 @@ export default function HeroSection() {
               alt={slide.alt}
               fill
               priority={index === 0}
-              className="object-cover"
+              className="object-fill "
             />
             {/* Dark gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
+           {/* <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div> */}
           </div>
         ))}
       </div>
 
       {/* Content Wrapper */}
-      <div className="relative z-20 flex h-full items-center max-w-7xl mx-auto px-8 w-full">
-        <div className="max-w-2xl text-white text-center lg:text-left drop-shadow-lg">
-          <p
-            className={`font-semibold text-lg md:text-xl mb-4 text-cyan-400 transition-all duration-700 ease-out ${currentSlide !== null ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-5'}`}
-            style={{ transitionDelay: '200ms' }}
-          >
-            {slides[currentSlide].subtitle}
-          </p>
-          <h2
-            className={`font-bold text-4xl md:text-6xl leading-tight mb-6 transition-all duration-700 ease-out ${currentSlide !== null ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-5'}`}
-            style={{ transitionDelay: '400ms' }}
-          >
-            {slides[currentSlide].title}
-          </h2>
-          <p
-            className={`text-base md:text-lg leading-relaxed mx-auto lg:mx-0 mb-8 max-w-xl transition-all duration-700 ease-out ${currentSlide !== null ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-5'}`}
-            style={{ transitionDelay: '600ms' }}
-          >
-            {slides[currentSlide].description}
-          </p>
-          <div
-            className={`transition-all duration-700 ease-out ${currentSlide !== null ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-5'}`}
-            style={{ transitionDelay: '800ms' }}
-          >
-            <Link
-              href={slides[currentSlide].buttonLink}
-              className="group relative inline-block py-3.5 px-9 bg-cyan-500 text-white font-bold no-underline border-2 border-cyan-500 overflow-hidden transition-colors duration-400 hover:bg-transparent hover:text-cyan-400"
+       <div className="relative z-20 flex h-full items-center max-w-7xl mx-auto px-8 w-full">
+        
+        {/* Dynamic Text Content with Staggered Animations */}
+        <div className="max-w-2xl text-white text-center lg:text-left">
+            <p className={`font-semibold text-lg md:text-xl mb-4 text-cyan-400 transition-all duration-700 ease-out ${currentSlide !== null ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-5'}`} style={{ transitionDelay: '200ms' , color: '#f0f0f0' }}>
+                {slides[currentSlide].subtitle}
+            </p>
+            <h2
+                className={`font-bold text-4xl md:text-6xl leading-tight mb-6 transition-all duration-700 ease-out ${currentSlide !== null ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-5'}`}
+                style={{ transitionDelay: '400ms', color: '#52b765' }}
             >
-              <span className="block transition-transform duration-500 ease-[cubic-bezier(0.7,0,0.2,1)] group-hover:-translate-y-full">
-                {slides[currentSlide].buttonText}
-              </span>
-              <div className="absolute top-full left-0 w-full py-3.5 transition-transform duration-500 ease-[cubic-bezier(0.7,0,0.2,1)] group-hover:-translate-y-full">
-                {slides[currentSlide].buttonText}
-              </div>
-            </Link>
-          </div>
+                {slides[currentSlide].title}
+            </h2>
+            <p
+                className={`text-base md:text-lg leading-relaxed mx-auto lg:mx-0 mb-8 max-w-xl transition-all duration-700 ease-out ${currentSlide !== null ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-5'}`}
+                style={{ transitionDelay: '600ms', color: '#f0f0f0' }}
+            >
+                {slides[currentSlide].description}
+            </p>
+            <div className={`transition-all duration-700 ease-out ${currentSlide !== null ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-5'}`} style={{ transitionDelay: '800ms' }}>
+                <Link
+                    href={slides[currentSlide].buttonLink}
+                    className="group relative inline-block py-3.5 px-9 font-bold no-underline overflow-hidden transition-colors duration-400 rounded-md"
+                    style={{
+                        
+                        color: '#fff',
+                        border: '2px solid #52b765'
+                    }}
+                >
+                    <span className="block transition-transform duration-500 ease-[cubic-bezier(0.7,0,0.2,1)] group-hover:-translate-y-full">
+                        {slides[currentSlide].buttonText}
+                    </span>
+                    <div className="absolute top-full left-0 w-full py-3.5 transition-transform duration-500 ease-[cubic-bezier(0.7,0,0.2,1)] group-hover:-translate-y-full"
+                        style={{ backgroundColor: '#52b765', color: '#fff' }}>
+                        {slides[currentSlide].buttonText}
+                    </div>
+                </Link>
+            </div>
         </div>
       </div>
-
     </section>
   );
 }

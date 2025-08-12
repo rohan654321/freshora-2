@@ -9,10 +9,35 @@ import GuaranteeSection from '@/component/GuaranteeSection';
 import AdvantagesSection from '@/component/AdvantagesSection';
 import HistorySection from '@/component/HistorySection';
 import TeamSection from '@/component/TeamSection';
+import Link from 'next/link';
 
 export default function AboutSection() {
   return (
     <>
+          <div
+            className="relative h-64 bg-cover bg-center flex items-center"
+            style={{
+              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/placeholder.svg?height=400&width=1200&text=Laundry+Machines+Background')`,
+            }}
+          >
+     <div className="max-w-7xl mx-auto px-4 w-full">
+      {/* Breadcrumb */}
+      <nav className="flex items-center space-x-2 text-white mb-4">
+        <Link href="/" className="hover:text-green-400">
+          Home
+        </Link>
+        <span className="px-2">/</span>
+        <Link href="/services" className="hover:text-green-400">
+          About
+        </Link>
+        {/* <span className="px-2">/</span>
+        <span className="text-green-400">Single Service</span> */}
+      </nav>
+    
+      <h1 className="text-4xl md:text-5xl font-bold text-white">About</h1>
+    </div>
+    
+          </div>
    
     <div className="bg-top-left bg-cover bg-no-repeat py-16 lg:py-24" 
          style={{ backgroundImage: "url('/images/wrapper01.png')" }}>

@@ -31,6 +31,28 @@ export default function CartPage() {
   if (cart.length === 0) {
     return (
       <div>
+        <div
+                   className="relative h-64 bg-cover bg-center flex items-center"
+                   style={{
+                     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/modern-office-laundry.png?height=400&width=1200&text=Laundry+Machines+Background')`,
+                   }}
+                 >
+            <div className="max-w-7xl mx-auto px-4 w-full">
+             {/* Breadcrumb */}
+             <nav className="flex items-center space-x-2 text-white mb-4">
+               <Link href="/" className="hover:text-green-400">
+                 Home
+               </Link>
+               <span className="px-2">/</span>
+               <Link href="/services" className="hover:text-green-400">
+                 Cart
+               </Link>
+             </nav>
+           
+             <h1 className="text-4xl md:text-5xl font-bold text-white">Cart</h1>
+           </div>
+           
+                 </div>
         <div className="min-h-screen bg-gray-50 py-8">
           <div className="max-w-4xl mx-auto px-4">
             <Link href="/services" className="inline-flex items-center gap-2 text-green-600 hover:text-green-700 mb-6">

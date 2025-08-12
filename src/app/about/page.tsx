@@ -27,9 +27,9 @@ export default function AboutSection() {
           Home
         </Link>
         <span className="px-2">/</span>
-        <Link href="/services" className="hover:text-green-400">
+        <span className="hover:text-green-400">
           About
-        </Link>
+        </span>
         {/* <span className="px-2">/</span>
         <span className="text-green-400">Single Service</span> */}
       </nav>

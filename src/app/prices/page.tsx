@@ -16,10 +16,7 @@ const poppins = Poppins({
   weight: ["400", "500", "600", "700"],
   display: "swap",
 })
-interface ServiceBannerProps{
-
-}
-const ServiceBanner:React.FC<ServiceBannerProps> = () =>{
+const ServiceBanner:React.FC = () =>{
   return(
              <div className="relative h-[350px] md:h-[420px] w-full overflow-hidden">
         {/* Overlay */}

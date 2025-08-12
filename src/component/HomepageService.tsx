@@ -3,10 +3,11 @@
 "use client";
 
 import React from 'react';
-import Slider, { type Settings } from 'react-slick';
 import Image from 'next/image';
 import Link from 'next/link';
-
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules';
+import 'swiper/css';
 import { Sparkles, WashingMachine, Shirt, Scissors, Footprints } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
@@ -19,7 +20,7 @@ interface Service {
 }
 
 const HomepageServices = () => {
-    // Image paths updated to the /images/ format as requested
+    // Array order restored to the original sequence
     const services: Service[] = [
         {
             title: 'Carpet Cleaning',
@@ -49,7 +50,7 @@ const HomepageServices = () => {
             link: '/services/alterations',
             icon: Scissors,
         },
-         {
+        {
             title: 'Steam Iron',
             description: 'These services are accomplished under the guidance of adroit personnel who have affluent industry proficiency.',
             image: '/images/img11.jpg',
@@ -65,64 +66,57 @@ const HomepageServices = () => {
         },
     ];
 
-    const settings: Settings = {
-        dots: false,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 2,
-                },
-            },
-            {
-                breakpoint: 640,
-                settings: {
-                    slidesToShow: 1,
-                },
-            },
-        ],
-    };
-
     return (
-        <div className="section-indent no-margin" style={{ padding: '60px 0', backgroundColor: '#f9f9f9' }}>
-            <div className="container-fluid">
-                <div className="title-block text-center">
-                    <div className="title-block__label">[ Our Services ]</div>
-                    <h4 className="title-block__title">Dry Cleaning & Laundry,<br />Free Delivery</h4>
+        <section className="py-16 bg-[#f9f9f9]">
+            <div className="max-w-7xl mx-auto px-4">
+                <div className="text-center mb-12">
+                    <div className="text-green-600 font-semibold mb-2">[ Our Services ]</div>
+                    <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Dry Cleaning & Laundry,<br />Free Delivery</h2>
                 </div>
 
-                <Slider {...settings} className="services-carousel">
+                <Swiper
+                    modules={[Autoplay]}
+                    spaceBetween={30}
+                    slidesPerView={1}
+                    loop={true}
+                    autoplay={{
+                        delay: 3000,
+                        disableOnInteraction: false,
+                    }}
+                    breakpoints={{
+                        640: { slidesPerView: 2 },
+                        1024: { slidesPerView: 3 },
+                    }}
+                    className="pb-4"
+                >
                     {services.map((service) => (
-                        <div key={service.title} className="tt-item">
-                            <Link href={service.link} className="imgbox-inner">
-                                <div className="imgbox-inner__img">
-                                    <div className="icon-wrapper">
-                                        <service.icon className="service-icon" />
-                                    </div>
+                        <SwiperSlide key={service.title}>
+                            <Link href={service.link} className="group block relative rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
+                                <div className="relative w-full h-80">
                                     <Image
                                         src={service.image}
                                         alt={service.title}
-                                        width={600}
-                                        height={600}
-                                        // 'layout' prop removed to align with modern Next.js
+                                        fill
+                                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                        className="object-cover transition-transform duration-300 group-hover:scale-105"
                                     />
                                 </div>
-                                <div className="imgbox-inner__description">
-                                    <h4 className="imgbox-inner__title">{service.title}</h4>
-                                    <p>{service.description}</p>
+                                {/* Overlay for content */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent flex flex-col justify-end p-6 text-white">
+                                    <div className="flex items-center gap-3 mb-2">
+                                        <div className="bg-green-500 rounded-full p-2 flex-shrink-0">
+                                            <service.icon className="w-5 h-5 text-white" />
+                                        </div>
+                                        <h3 className="text-xl font-semibold">{service.title}</h3>
+                                    </div>
+                                    <p className="text-sm opacity-90 leading-relaxed line-clamp-2">{service.description}</p>
                                 </div>
                             </Link>
-                        </div>
+                        </SwiperSlide>
                     ))}
-                </Slider>
+                </Swiper>
             </div>
-        </div>
+        </section>
     );
 };
 

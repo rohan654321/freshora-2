@@ -12,7 +12,7 @@ import {
   FaBars,
   FaTimes,
 } from "react-icons/fa"
-import PickupForm from "./pickup-form"
+import PickupForm from "./SchedulePickupModal"
 import { useCart } from "../app/context/cart-context"
 
 interface NavItem {

@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { ArrowLeft, Plus, Minus, Trash2, ShoppingCart } from "lucide-react"
 import { useCart } from "../context/cart-context"
-import PickupForm from "@/component/pickup-form"
+import PickupForm from "@/component/SchedulePickupModal"
 // import Navbar from "../../component/NavBar"
 
 export default function CartPage() {

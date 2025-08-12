@@ -5,6 +5,8 @@ import LaundryService from '@/component/LaundryService';
 import HomepagePricingCards from '@/component/HomePagePricingCard';
 import HomepagePricePackages from '@/component/HomepagePricePackages';
 import TestimonialsSection from '@/component/TestimonialsSection'; 
+import HomepageServices from '@/component/HomepageService';
+
 
 export default function HomePage() {
   return (
@@ -13,6 +15,7 @@ export default function HomePage() {
       <LaundryExperience />
       <HowWeWorkSection />
       <LaundryService />
+      <HomepageServices />
       <HomepagePricingCards />
       <TestimonialsSection />
       <HomepagePricePackages />

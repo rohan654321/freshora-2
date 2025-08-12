@@ -25,7 +25,7 @@ export default function Footer() {
         {/* Left Column */}
         <div>
           <h2 className="text-xl font-bold text-green-500 mb-2">
-            <span className="text-white">Pro</span>Laundry
+            <span className="text-green-600">Freshora</span> <span className='text-white'>Laundry</span>
           </h2>
           <p className="mb-4">
             We are professionals in the laundry and dry cleaning business, which means we always stay up to date on the latest technologies and cleaning methods.
@@ -48,7 +48,7 @@ export default function Footer() {
 
         {/* Middle Column - Contacts */}
         <div>
-          <h3 className="text-lg font-semibold mb-4">Contacts</h3>
+          <h3 className="text-lg font-semibold mb-4"> <span className='text-green-600'>Contacts</span></h3>
           <div className="flex items-start gap-2 mb-2">
             <MdLocationOn className="text-green-500 mt-1" />
             <span>8494 Signal Hill Road Manassas, VA, 20110</span>
@@ -65,13 +65,13 @@ export default function Footer() {
           </div>
           <div className="flex items-center gap-2">
             <MdPhone className="text-green-500" />
-            <span className="font-bold">1 (800) 765-43-21</span>
+            <span className="font-bold">+971 50 925 9667</span>
           </div>
         </div>
 
         {/* Right Column - Newsletter */}
         <div>
-          <h3 className="text-lg font-semibold mb-4">Newsletter Subscribe</h3>
+          <h3 className="text-lg font-semibold mb-4"> <span className='text-green-600'>Newsletter Subscribe</span></h3>
           <p className="mb-4">Sign up and receive our special offers.</p>
           <input
             type="email"
@@ -86,7 +86,7 @@ export default function Footer() {
 
       {/* Bottom Strip */}
       <div className="bg-white text-black text-sm py-4 px-6 flex flex-col md:flex-row justify-between items-center gap-3">
-        <p>© 2020 <span className="text-green-600 font-medium">Pro</span>Laundry. All Rights Reserved.</p>
+ <p>© {new Date().getFullYear()} <span className="text-green-600 font-medium">Freshora</span>Laundry. All Rights Reserved.</p>
         <div className="flex gap-6">
           <a href="#" className="hover:underline">Terms and Conditions</a>
           <a href="#" className="hover:underline">Privacy Policy</a>

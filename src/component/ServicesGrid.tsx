@@ -9,49 +9,16 @@ const poppins = Poppins({
 });
 
 const services = [
-  {
-    id: 1,
-    slug: 'laundry-services',
-    image: '/images/img07.jpg',
-    title: 'Laundry Services',
-    description: 'Let us pick up and drop off your laundry, quick & cost-efficient service with flexible plans.',
-  },
-  {
-    id: 2,
-    slug: 'dry-cleaning-services',
-    image: '/images/img08.jpg',
-    title: 'Dry Cleaning Services',
-    description: 'Stubborn stains? No problem. We ensure your clothes look as good as new.',
-  },
-  {
-    id: 3,
-    slug: 'carpet-cleaning',
-    image: '/images/img09.jpg',
-    title: 'Carpet Cleaning',
-    description: 'Deep carpet steam cleaning to maintain hygiene and softness.',
-  },
-  {
-    id: 4,
-    slug: 'alterations-repairs',
-    image: '/images/img10.jpg',
-    title: 'Alterations & Repairs',
-    description: 'Professional tailoring, hemming, and clothing repairs.',
-  },
-  {
-    id: 5,
-    slug: 'steam-iron',
-    image: '/images/img11.jpg',
-    title: 'Steam Iron',
-    description: 'We offer premium steam iron services at your doorstep.',
-  },
-  {
-    id: 6,
-    slug: 'shoes-cleaning',
-    image: '/images/img12.jpg',
-    title: 'Shoes Cleaning',
-    description: 'Bring your shoes back to life with our expert cleaning service.',
-  },
-];
+  { id: 1 , slug: "laundry-services", image:"/images/box02-img01.webp", title: "Laundry Services", description: "Professional laundry for all clothes." },
+  { id: 2, slug: "dry-cleaning-services", image: "/images/img08.jpg", title: "Dry Cleaning Services", description: "Gentle care for delicate garments." },
+  { id: 3, slug: "express-laundry-services", image:"/images/img01.jpg", title: "Express Laundry Services", description: "Same-day laundry services." },
+  { id: 4, slug: "shoe-bag-spa", image:"/images/img12.jpg", title: "Shoe & Bag Spa", description: "Luxury cleaning for shoes and bags." },
+  { id: 5, slug: "luxury-shoe-cleaning", image:"/images/download.jfif", title: "Luxury Shoe Cleaning", description: "Premium shoe care services." },
+  { id: 6, slug: "commercial-laundry-service", image:"/images/layout01-img01.jpg", title: "Commercial Laundry Service", description: "Laundry solutions for businesses." },
+  { id: 7, slug: "curtain-cleaning-service", image:"/images/img10.jpg", title: "Curtain Cleaning Service", description: "Expert curtain cleaning at your doorstep." },
+  { id: 8, slug: "carpet-cleaning-service", image:"/images/img09.jpg", title: "Carpet Cleaning Service", description: "Deep cleaning for carpets and rugs." },
+  { id: 9, slug: "soft-toy-cleaning-service", image:"/images/img11.jpg", title: "Soft Toy Cleaning Service", description: "Safe and hygienic cleaning for toys." },
+]
 
 const ServicesGrid = () => {
   return (

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 // import NotFound from "@/component/NotFound";
 import React from "react";
 
@@ -13,6 +14,28 @@ export default function ContactPage({
   return (
     // <NotFound/>
     <main className="min-h-screen bg-gray-50">
+                         <div
+        className="relative h-64 bg-cover bg-center flex items-center"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/modern-office-laundry.png?height=400&width=1200&text=Laundry+Machines+Background')`,
+        }}
+      >
+ <div className="max-w-7xl mx-auto px-4 w-full">
+  {/* Breadcrumb */}
+  <nav className="flex items-center space-x-2 text-white mb-4">
+    <Link href="/" className="hover:text-green-400">
+      Home
+    </Link>
+    <span className="px-2">/</span>
+    <Link href="/services" className="hover:text-green-400">
+      Contact
+    </Link>
+  </nav>
+
+  <h1 className="text-4xl md:text-5xl font-bold text-white">Contact</h1>
+</div>
+
+      </div>
       {/* Top Contact Info */}
       <section className="text-center py-10">
         <h2 className="text-green-600 text-sm font-semibold mb-2">

@@ -96,29 +96,29 @@ export default function FAQPage() {
   return (
     <div>
       {/* Header Section */}
-      <div className="relative h-[350px] md:h-[420px] w-full overflow-hidden">
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/50" />
-        {/* Content Wrapper */}
-        <div className="absolute inset-0 flex flex-col items-start justify-center text-white px-8 md:px-20 z-10">
-          {/* Breadcrumb */}
-          <div className="flex items-center gap-3 mb-4">
-            <Link
-              href="/"
-              className="px-4 py-1 rounded-md text-sm hover:bg-white/20 transition border-none"
-            >
-              Home
-            </Link>
-            <span className="text-gray-300">/</span>
-            <Link
-              href="/services"
-              className="px-4 py-1 rounded-md text-sm hover:bg-white/20 transition border-none"
-            >
-              FAQ
-            </Link>
-          </div>
-          <h1 className="text-4xl md:text-6xl font-bold">FAQ</h1>
-        </div>
+            <div
+        className="relative h-64 bg-cover bg-center flex items-center"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/modern-office-laundry.png?height=400&width=1200&text=Laundry+Machines+Background')`,
+        }}
+      >
+ <div className="max-w-7xl mx-auto px-4 w-full">
+  {/* Breadcrumb */}
+  <nav className="flex items-center space-x-2 text-white mb-4">
+    <Link href="/" className="hover:text-green-400">
+      Home
+    </Link>
+    <span className="px-2">/</span>
+    <Link href="/services" className="hover:text-green-400">
+      FAQs
+    </Link>
+    {/* <span className="px-2">/</span>
+    <span className="text-green-400">Single Service</span> */}
+  </nav>
+
+  <h1 className="text-4xl md:text-5xl font-bold text-white">FAQs</h1>
+</div>
+
       </div>
 
       {/* FAQ Section */}

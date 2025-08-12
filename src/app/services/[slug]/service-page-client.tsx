@@ -1,13 +1,13 @@
 "use client"
 
-import { useState } from "react"
+import { notFound } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ArrowLeft, Star, Plus, Minus, ShoppingCart } from "lucide-react"
-import { useCart } from "../../context/cart-context"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { ChevronRight, MapPin, Clock, Mail, Phone, CheckCircle } from "lucide-react"
+// import { getServiceBySlug } from "../../../lib/services-data"
 import type { Service } from "../../../lib/services-data"
 
 interface ServiceItem {
@@ -17,55 +17,28 @@ interface ServiceItem {
   description: string
 }
 
-const serviceItems = {
-  "laundry-services": {
-    men: [
-      { id: "m1", name: "T-Shirts", price: 3, description: "Cotton t-shirts, polo shirts" },
-      { id: "m2", name: "Shirts (Formal)", price: 5, description: "Dress shirts, business shirts" },
-      { id: "m3", name: "Pants/Trousers", price: 6, description: "Casual pants, formal trousers" },
-      { id: "m4", name: "Jeans", price: 7, description: "Denim jeans, casual wear" },
-      { id: "m5", name: "Suits", price: 15, description: "Two-piece suits, blazers" },
-      { id: "m6", name: "Underwear", price: 2, description: "Undergarments, socks" },
-    ],
-    women: [
-      { id: "w1", name: "T-Shirts/Tops", price: 3, description: "Casual tops, blouses" },
-      { id: "w2", name: "Dresses", price: 8, description: "Casual and formal dresses" },
-      { id: "w3", name: "Pants/Jeans", price: 6, description: "Trousers, jeans, leggings" },
-      { id: "w4", name: "Skirts", price: 5, description: "Mini, midi, maxi skirts" },
-      { id: "w5", name: "Blouses", price: 6, description: "Formal and casual blouses" },
-      { id: "w6", name: "Underwear/Lingerie", price: 2, description: "Undergarments, bras" },
-    ],
-    children: [
-      { id: "c1", name: "T-Shirts", price: 2, description: "Kids casual t-shirts" },
-      { id: "c2", name: "Pants/Shorts", price: 3, description: "Kids pants and shorts" },
-      { id: "c3", name: "Dresses", price: 4, description: "Girls dresses" },
-      { id: "c4", name: "School Uniforms", price: 5, description: "School shirts, pants" },
-      { id: "c5", name: "Pajamas", price: 3, description: "Sleepwear, nightwear" },
-      { id: "c6", name: "Underwear", price: 1, description: "Kids undergarments" },
-    ],
-  },
-  "dry-cleaning-services": {
-    men: [
-      { id: "m1", name: "Suits", price: 20, description: "Two-piece business suits" },
-      { id: "m2", name: "Blazers", price: 15, description: "Sport coats, blazers" },
-      { id: "m3", name: "Dress Shirts", price: 8, description: "Formal dress shirts" },
-      { id: "m4", name: "Ties", price: 5, description: "Neckties, bow ties" },
-      { id: "m5", name: "Coats/Jackets", price: 25, description: "Winter coats, leather jackets" },
-    ],
-    women: [
-      { id: "w1", name: "Dresses", price: 18, description: "Formal and cocktail dresses" },
-      { id: "w2", name: "Blouses", price: 10, description: "Silk and delicate blouses" },
-      { id: "w3", name: "Skirts", price: 12, description: "Formal and business skirts" },
-      { id: "w4", name: "Coats", price: 30, description: "Winter coats, fur coats" },
-      { id: "w5", name: "Evening Gowns", price: 35, description: "Formal evening wear" },
-    ],
-    children: [
-      { id: "c1", name: "Formal Wear", price: 12, description: "Kids formal suits, dresses" },
-      { id: "c2", name: "Coats", price: 15, description: "Kids winter coats" },
-      { id: "c3", name: "School Blazers", price: 10, description: "School uniform blazers" },
-    ],
-  },
-}
+const serviceCategories = [
+  { name: "Laundry Services", slug: "laundry-services", active: true },
+  { name: "Dry Cleaning Services", slug: "dry-cleaning-services", active: false },
+  { name: "Express Laundry Services", slug: "express-laundry-services", active: true },
+  { name: "Shoe & Bag Spa", slug: "shoe-bag-spa", active: false },
+  { name: "Luxury Shoe Cleaning", slug: "luxury-shoe-cleaning", active: false },
+  { name: "Commercial Laundry Service", slug: "commercial-laundry-service", active: false },
+  { name: "Curtain Cleaning Service", slug: "curtain-cleaning-service", active: false },
+  { name: "Carpet Cleaning Service", slug: "carpet-cleaning-service", active: false },
+  { name: "Soft Toy Cleaning Service", slug: "soft-toy-cleaning-service", active: false },
+]
+
+const serviceFeatures = [
+  "Salons & Spas",
+  "Restaurants and Caterers",
+  "Religious Organizations",
+  "Daycare centers",
+  "Assisted Living / Nursing Homes",
+  "Hotels & Motels",
+  "Nail Salons",
+  "Athletic Facilities / Gyms",
+]
 
 export default function ServicePageClient({
   slug,
@@ -74,163 +47,215 @@ export default function ServicePageClient({
   slug: string
   service: Service
 }) {
-  const { addToCart, getTotalItems } = useCart()
-  const [quantities, setQuantities] = useState<{ [key: string]: number }>({})
+//   const service = getServiceBySlug(params.slug)
 
-  const items = serviceItems[slug as keyof typeof serviceItems] || { men: [], women: [], children: [] }
-
-  const updateQuantity = (itemId: string, change: number) => {
-    const newQuantity = Math.max(0, (quantities[itemId] || 0) + change)
-    setQuantities((prev) => ({ ...prev, [itemId]: newQuantity }))
+  if (!service) {
+    notFound()
   }
 
-  const handleAddToCart = (item: ServiceItem, category: string) => {
-    const quantity = quantities[item.id] || 0
-    if (quantity === 0) return
-
-    addToCart(
-      {
-        id: `${slug}-${item.id}`,
-        name: item.name,
-        category: category,
-        price: item.price,
-        serviceType: service.title,
-      },
-      quantity,
-    )
-
-    // Reset quantity after adding to cart
-    setQuantities((prev) => ({ ...prev, [item.id]: 0 }))
-  }
-
-  const ItemCard = ({ item, category }: { item: ServiceItem; category: string }) => (
-    <Card className="p-4">
-      <div className="flex justify-between items-start mb-2">
-        <div className="flex-1">
-          <h4 className="font-semibold text-lg">{item.name}</h4>
-          <p className="text-sm text-gray-600 mb-2">{item.description}</p>
-          <p className="text-green-600 font-bold text-lg">${item.price}</p>
-        </div>
-      </div>
-
-      <div className="flex items-center justify-between mt-4">
-        <div className="flex items-center gap-3">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => updateQuantity(item.id, -1)}
-            disabled={(quantities[item.id] || 0) === 0}
-          >
-            <Minus className="h-4 w-4" />
-          </Button>
-          <span className="w-8 text-center font-semibold">{quantities[item.id] || 0}</span>
-          <Button variant="outline" size="sm" onClick={() => updateQuantity(item.id, 1)}>
-            <Plus className="h-4 w-4" />
-          </Button>
-        </div>
-
-        <Button
-          onClick={() => handleAddToCart(item, category)}
-          disabled={(quantities[item.id] || 0) === 0}
-          className="bg-green-600 hover:bg-green-700"
-        >
-          Add to Cart
-        </Button>
-      </div>
-    </Card>
-  )
-
-  return (
+    return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <Link href="/services" className="inline-flex items-center gap-2 text-green-600 hover:text-green-700 mb-4">
-            <ArrowLeft className="h-4 w-4" />
-            Back to Services
-          </Link>
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">{service.title}</h1>
-              <div className="flex items-center gap-4">
-                <div className="flex items-center">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`h-4 w-4 ${i < service.rating ? "text-yellow-400 fill-current" : "text-gray-300"}`}
-                    />
-                  ))}
-                  <span className="ml-2 text-sm text-gray-600">
-                    {service.rating}.0 ({service.reviews} reviews)
-                  </span>
-                </div>
-                <Badge variant="secondary" className="bg-green-100 text-green-800">
-                  {service.duration}
-                </Badge>
-              </div>
-            </div>
+      
 
-            {/* Cart Link */}
-            {getTotalItems() > 0 && (
-              <Link href="/cart">
-                <Button className="bg-green-600 hover:bg-green-700">
-                  <ShoppingCart className="h-4 w-4 mr-2" />
-                  View Cart ({getTotalItems()})
-                </Button>
-              </Link>
-            )}
-          </div>
-        </div>
+      {/* Hero Section */}
+      <div
+        className="relative h-64 bg-cover bg-center flex items-center"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/modern-office-laundry.png?height=400&width=1200&text=Laundry+Machines+Background')`,
+        }}
+      >
+ <div className="max-w-7xl mx-auto px-4 w-full">
+  {/* Breadcrumb */}
+  <nav className="flex items-center space-x-2 text-white mb-4">
+    <Link href="/" className="hover:text-green-400">
+      Home
+    </Link>
+    <span className="px-2">/</span>
+    <Link href="/services" className="hover:text-green-400">
+      Services
+    </Link>
+    <span className="px-2">/</span>
+    <span className="text-green-400">Single Service</span>
+  </nav>
+
+  <h1 className="text-4xl md:text-5xl font-bold text-white">Single Service</h1>
+</div>
+
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Service Description */}
-        <Card className="mb-8">
-          <CardContent className="p-6">
-            <h2 className="text-2xl font-bold mb-4">About This Service</h2>
-            <p className="text-gray-600 leading-relaxed">{service.fullDescription}</p>
-          </CardContent>
-        </Card>
+        <div className="grid lg:grid-cols-4 gap-8">
+          {/* Left Sidebar */}
+          <div className="lg:col-span-1">
+            <Card>
+              <CardContent className="p-0">
+                {serviceCategories.map((category, index) => (
+                  <Link
+                    key={index}
+                    href={`/services/${category.slug}`}
+                    className={`block px-6 py-4 border-b border-gray-200 last:border-b-0 transition-colors ${
+                      category.slug === slug ? "bg-green-600 text-white" : "hover:bg-gray-50 text-gray-700"
+                    }`}
+                  >
+                    {category.name}
+                  </Link>
+                ))}
+              </CardContent>
+            </Card>
+          </div>
 
-        {/* Service Items by Category */}
-        <Card>
-          <CardContent className="p-6">
-            <h2 className="text-2xl font-bold mb-6">Select Items & Quantities</h2>
+          {/* Main Content */}
+          <div className="lg:col-span-3">
+            <div className="grid lg:grid-cols-3 gap-8">
+              {/* Service Image */}
+              <div className="lg:col-span-2">
+                <img
+                  src="/images/layout01-img01.jpg?height=400&width=600&text=Person+Loading+Washing+Machine"
+                  alt="Laundry Service"
+                  className="w-full h-64 lg:h-80 object-cover  shadow-lg"
+                />
+              </div>
 
-            <Tabs defaultValue="men" className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="men">Men&apos;s Clothing</TabsTrigger>
-                <TabsTrigger value="women">Women&apos;s Clothing</TabsTrigger>
-                <TabsTrigger value="children">Children&apos;s Clothing</TabsTrigger>
-              </TabsList>
+              {/* Contact Info */}
+              <div className="lg:col-span-1">
+                <Card>
+                  <CardContent className="p-6">
+                    <h3 className="text-lg font-semibold mb-4 text-gray-800">Our Contacts</h3>
 
-              <TabsContent value="men" className="mt-6">
-                <div className="grid md:grid-cols-2 gap-4">
-                  {items.men.map((item) => (
-                    <ItemCard key={item.id} item={item} category="Men" />
-                  ))}
+                    <div className="space-y-3 mb-6">
+                      <div className="flex items-start gap-3">
+                        <MapPin className="h-4 w-4 text-green-600 mt-1" />
+                        <div className="text-sm">
+                          <p className="text-gray-600">8494 Signal Hill Road</p>
+                          <p className="text-gray-600">Manassas, VA, 20110</p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <Clock className="h-4 w-4 text-green-600" />
+                        <div className="text-sm">
+                          <p className="text-gray-600">Mon-Fri 08:00 AM - 05:00 PM</p>
+                          <p className="text-gray-600">Sat-Sun 10:00 AM - 4:00 PM</p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <Mail className="h-4 w-4 text-green-600" />
+                        <p className="text-sm text-gray-600">info@prolaundrysite.com</p>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <Phone className="h-4 w-4 text-green-600" />
+                        <p className="text-sm text-gray-600">1 (800) 765-43-21</p>
+                      </div>
+                    </div>
+
+                    <Button className="w-full bg-green-600 hover:bg-green-700">Schedule a Pickup</Button>
+                    <Link href={`/services/${slug}/orders`}>
+                      <Button
+                        variant="outline"
+                        className="w-full mt-2 border-green-600 text-green-600 hover:bg-green-50 bg-transparent"
+                      >
+                        Get the Service
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+
+            {/* Service Description */}
+            <div className="mt-8 grid lg:grid-cols-3 gap-8">
+              <div className="lg:col-span-2">
+                <div className="mb-8">
+                  <div className="border-l-4 border-green-600 pl-4 mb-6">
+                    <h4 className="text-green-600 font-medium mb-2">What we offer</h4>
+                    <h2 className="text-2xl font-bold text-gray-800 mb-4">Laundry Services</h2>
+                    <p className="text-gray-600 leading-relaxed">
+                      Laundry&apos;s Wash and Fold, also called Fluff and Fold, or simply Drop Off Laundry, is the perfect
+                      solution to your laundry needs as a busy parent, professional, senior citizen or student. Use drop
+                      off laundry and free more of your time and energy to work, play, or just relax. Let wash, dry, and
+                      fold your clothes for you!
+                    </p>
+                  </div>
+
+                  <h3 className="text-xl font-semibold mb-4 text-gray-800">
+                    Wash and Fold Laundry Service Delivered to Your Home
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed mb-6">
+                    Get the very best in wash and fold or fluff and fold laundry service from the dry cleaning and
+                    laundry experts. We offer one-day or same-day laundry service with a 100% satisfaction guarantee to
+                    customers in our service areas, combining the excellence of our premium dry cleaning with the
+                    ultimate convenience in laundry service and delivery. Enjoy free home pickup and delivery for your
+                    wash and fold laundry items, or use a safe and secure 24-hour drop box located at our stores and
+                    lockers to drop off your fluff and fold laundry whenever it&apos;s convenient for you. Our Laundry
+                    Clients Include:
+                  </p>
+
+                  {/* Service Features Grid */}
+                  <div className="grid md:grid-cols-2 gap-4 mb-8">
+                    {serviceFeatures.map((feature, index) => (
+                      <div key={index} className="flex items-center gap-2">
+                        <CheckCircle className="h-4 w-4 text-green-600" />
+                        <span className="text-sm text-gray-700">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Service Images */}
+                  <div className="grid md:grid-cols-2 gap-4 mb-8">
+                    <img
+                      src="/images/img09.jpg?height=200&width=300&text=Ironing+Service"
+                      alt="Ironing Service"
+                      className="w-full h-48 object-cover"
+                    />
+                    <img
+                      src="/images/img11.jpg?height=200&width=300&text=Hanging+Clothes"
+                      alt="Hanging Clothes"
+                      className="w-full h-48 object-cover "
+                    />
+                  </div>
+
+                  {/* How It Works Section */}
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4 text-gray-800">How Wash and Fold Works</h3>
+                    <p className="text-gray-600 leading-relaxed mb-4">
+                      What is Wash and Fold? Sometimes referred to as laundry service or fluff and fold, full-service
+                      wash and fold is our approach laundry service. When your garments don&apos;t need our dry cleaning
+                      services, wash and fold is your best solution to clean clothes. Your clothes will last longer and
+                      stay brighter.
+                    </p>
+                    <p className="text-gray-600 leading-relaxed">
+                      Simply use one of our many convenient drop-off or pickup services, tell us any specific
+                      instructions for your garments, and well take care of the rest. You can pick it up from there! We
+                      use state-of-the-art equipment and the best detergents and fabric softeners to ensure your clothes
+                      are cleaned properly and thoroughly.
+                    </p>
+                  </div>
                 </div>
-              </TabsContent>
+              </div>
 
-              <TabsContent value="women" className="mt-6">
-                <div className="grid md:grid-cols-2 gap-4">
-                  {items.women.map((item) => (
-                    <ItemCard key={item.id} item={item} category="Women" />
-                  ))}
-                </div>
-              </TabsContent>
+              {/* Contact Form */}
+              <div className="lg:col-span-1">
+                <Card>
+                  <CardContent className="p-6">
+                    <h3 className="text-lg font-semibold mb-4 text-gray-800">Ask Your Question</h3>
 
-              <TabsContent value="children" className="mt-6">
-                <div className="grid md:grid-cols-2 gap-4">
-                  {items.children.map((item) => (
-                    <ItemCard key={item.id} item={item} category="Children" />
-                  ))}
-                </div>
-              </TabsContent>
-            </Tabs>
-          </CardContent>
-        </Card>
+                    <form className="space-y-4">
+                      <Input placeholder="Your name" />
+                      <Input type="email" placeholder="E-mail" />
+                      <Input placeholder="Phone" />
+                      <Textarea placeholder="Your question" className="min-h-[100px]" />
+                      <Button className="w-full bg-green-600 hover:bg-green-700">Ask Question</Button>
+                    </form>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )
+  
 }

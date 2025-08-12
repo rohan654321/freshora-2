@@ -1,6 +1,6 @@
 "use client";
 
-import NotFound from "@/component/NotFound";
+// import NotFound from "@/component/NotFound";
 import React from "react";
 
 export default function ContactPage({
@@ -8,7 +8,7 @@ export default function ContactPage({
 }: {
   params: Promise<{ slug?: string }>;
 }) {
-  const { slug } = React.use(params);
+  React.use(params);
 
   return (
     // <NotFound/>
@@ -62,7 +62,7 @@ export default function ContactPage({
           <h3 className="text-2xl font-bold mb-2">Get in Touch.</h3>
           <p className="text-gray-500 mb-6">
             We look forward to helping you create and maintain a clean, healthy
-            environment that’s as enjoyable as it is functional.
+            environment thats as enjoyable as it is functional.
           </p>
           <form className="space-y-4">
             <input

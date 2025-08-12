@@ -1,6 +1,6 @@
 "use client";
 
-import NotFound from "@/component/NotFound";
+// import NotFound from "@/component/NotFound";
 import { Poppins } from "next/font/google";
 import Link from "next/link";
 import { useState } from "react";

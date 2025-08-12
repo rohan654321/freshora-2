@@ -8,7 +8,7 @@ const BannerSection = () => {
     <section className="relative h-[350px] md:h-[420px] w-full overflow-hidden">
       {/* Background Image */}
       <Image
-        src="/modern-office-laundry.png"
+        src="/images/modern-office-laundry.png"
         alt="Services Banner"
         fill
         className="object-cover"

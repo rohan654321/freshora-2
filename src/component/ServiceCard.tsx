@@ -10,7 +10,7 @@ interface ServiceCardProps {
   slug: string;
 }
 
-const ServiceCard: React.FC<ServiceCardProps> = ({ id, image, title, description, slug }) => {
+const ServiceCard: React.FC<ServiceCardProps> = ({  image, title, description, slug }) => {
   return (
     <Link href={`/services/${slug}`}>
       <div className="bg-white shadow-md rounded-md overflow-hidden cursor-pointer transform transition-transform hover:scale-105 hover:shadow-lg">

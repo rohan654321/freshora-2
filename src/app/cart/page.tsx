@@ -42,7 +42,10 @@ export default function CartPage() {
               <CardContent>
                 <ShoppingCart className="h-16 w-16 text-gray-300 mx-auto mb-4" />
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">Your cart is empty</h2>
-                <p className="text-gray-600 mb-6">Looks like you haven't added any items to your cart yet.</p>
+                <p className="text-gray-600 mb-6">
+  Looks like you haven&apos;t added any items to your cart yet.
+</p>
+
                 <Link href="/services">
                   <Button className="bg-green-600 hover:bg-green-700">Browse Services</Button>
                 </Link>

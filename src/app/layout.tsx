@@ -1,24 +1,24 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { Poppins } from 'next/font/google';
+// import { Geist, Geist_Mono } from "next/font/google";
+// import { Poppins } from 'next/font/google';
 import { CartProvider } from "./context/cart-context"
 import "./globals.css";
 import Navbar from "@/component/NavBar";
 import Footer from "@/component/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-const poppins = Poppins({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'], // Add weights as needed
-  display: 'swap',
-});
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// const geistSans = Geist({
+//   variable: "--font-geist-sans",
+//   subsets: ["latin"],
+// });
+// const poppins = Poppins({
+//   subsets: ['latin'],
+//   weight: ['400', '500', '600', '700'], // Add weights as needed
+//   display: 'swap',
+// });
+// const geistMono = Geist_Mono({
+//   variable: "--font-geist-mono",
+//   subsets: ["latin"],
+// });
 
 export const metadata: Metadata = {
   title: "Create Next App",

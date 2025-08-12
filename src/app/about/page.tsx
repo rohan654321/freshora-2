@@ -1,9 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
+// import Link from 'next/link';
 import { Phone, Clock, CreditCard, Leaf } from 'lucide-react';
-import LaundryExperience from '@/component/LaundryExperience';
+// import LaundryExperience from '@/component/LaundryExperience';
 import LaundryStats from '@/component/LaundryStatus';
 import GuaranteeSection from '@/component/GuaranteeSection';
 import AdvantagesSection from '@/component/AdvantagesSection';

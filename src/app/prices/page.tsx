@@ -1,5 +1,4 @@
 "use client"
-
 import type React from "react"
 import { useEffect, useState } from "react"
 import { Poppins } from "next/font/google"
@@ -32,7 +31,6 @@ const useWindowSize = () => {
 
     // Set initial size
     handleResize()
-
     window.addEventListener("resize", handleResize)
     return () => window.removeEventListener("resize", handleResize)
   }, [])
@@ -58,7 +56,6 @@ const ServiceBanner: React.FC = () => {
             Prices
           </Link>
         </nav>
-
         <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white">Prices</h1>
       </div>
     </div>
@@ -79,14 +76,12 @@ const ServicePriceCard: React.FC<ServicePriceCardProps> = ({ icon: Icon, title, 
         <div className="bg-green-100 p-3 sm:p-4 rounded-full transition-all duration-500 group-hover:-translate-y-16 sm:group-hover:-translate-y-20 group-hover:opacity-0">
           <Icon size={32} className="text-green-600 sm:w-10 sm:h-10" />
         </div>
-
         <div className="space-y-2 transition-all duration-500 group-hover:-translate-y-6 sm:group-hover:-translate-y-8">
           <h3 className="text-base sm:text-lg font-bold text-gray-800 leading-tight px-2">{title}</h3>
           <p className="text-xs sm:text-sm text-gray-600 px-2">{description}</p>
           <p className="text-xl sm:text-2xl font-bold text-green-600">{price}</p>
         </div>
       </div>
-
       <div className="absolute bottom-3 sm:bottom-4 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:translate-y-0 translate-y-4">
         <button className="px-4 sm:px-6 py-2 bg-green-600 text-white text-xs sm:text-sm font-semibold rounded-lg hover:bg-green-700 transition-colors duration-300 shadow-md">
           Order Now
@@ -110,7 +105,6 @@ const ServiceCarousel: React.FC = () => {
 
   useEffect(() => {
     if (width === 0) return // Avoid setting during SSR
-
     if (width >= 1280) setCardsToShow(4)
     else if (width >= 1024) setCardsToShow(3)
     else if (width >= 768) setCardsToShow(2)
@@ -143,7 +137,6 @@ const ServiceCarousel: React.FC = () => {
             </div>
           ))}
         </div>
-
         <button
           onClick={prevSlide}
           disabled={currentSlide === 0}
@@ -158,7 +151,6 @@ const ServiceCarousel: React.FC = () => {
         >
           <ChevronRight className="h-4 w-4 sm:h-6 sm:w-6 text-green-600" />
         </button>
-
         <div className="flex justify-center mt-6 sm:mt-8 space-x-2 sm:space-x-3">
           {Array.from({ length: maxSlide + 1 }).map((_, index) => (
             <button
@@ -185,56 +177,58 @@ interface PackageCardProps {
   isFeatured?: boolean
 }
 
-const PackageCard: React.FC<PackageCardProps> = ({
-  icon: Icon,
-  title,
-  // description,
-  features,
-  price,
-  originalPrice,
-  // isFeatured,
-}) => {
+const PackageCard: React.FC<PackageCardProps> = ({ icon: Icon, title, features, price, originalPrice }) => {
+  const [isExpanded, setIsExpanded] = useState(false)
+
   return (
-<Card className="group relative flex flex-col transition-all duration-300 hover:shadow-lg bg-white border-none">
-  <CardContent
-    className="flex flex-col h-full p-6 transition-all duration-300 group-hover:pt-4 group-hover:pb-4"
-  >
-    {/* Icon & Title */}
-    <div className="flex flex-col items-center text-center mb-4">
-      <div className="p-4 rounded-full bg-green-100 text-green-600 mb-3">
-        <Icon size={28} />
-      </div>
-      <h3 className="text-lg font-bold text-gray-800">{title}</h3>
-      <p className="text-green-600 font-medium text-sm"> Clothes Per Month</p>
-    </div>
+    <Card
+      className="group relative flex flex-col transition-all duration-300 hover:shadow-lg bg-white border-none cursor-pointer"
+      onClick={() => setIsExpanded(!isExpanded)}
+    >
+      <CardContent
+        className={`flex flex-col h-full p-6 transition-all duration-300 ${
+          isExpanded ? "pt-4 pb-4" : "group-hover:pt-4 group-hover:pb-4"
+        }`}
+      >
+        {/* Icon & Title */}
+        <div className="flex flex-col items-center text-center mb-4">
+          <div className="p-4 rounded-full bg-green-100 text-green-600 mb-3">
+            <Icon size={28} />
+          </div>
+          <h3 className="text-lg font-bold text-gray-800">{title}</h3>
+          <p className="text-green-600 font-medium text-sm">Clothes Per Month</p>
+        </div>
 
-    {/* Features */}
-    <ul className="space-y-2 mb-4 text-gray-700 text-sm">
-      {features.map((feature, index) => (
-        <li key={index} className="flex items-start gap-2">
-          <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0 mt-0.5" />
-          {feature}
-        </li>
-      ))}
-    </ul>
+        {/* Features */}
+        <ul className="space-y-2 mb-4 text-gray-700 text-sm">
+          {features.map((feature, index) => (
+            <li key={index} className="flex items-start gap-2">
+              <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0 mt-0.5" />
+              {feature}
+            </li>
+          ))}
+        </ul>
 
-    {/* Price */}
-    <div className="text-center border-t border-gray-100 pt-4">
-      {originalPrice && (
-        <p className="text-gray-500 line-through text-sm mb-1">{originalPrice}</p>
-      )}
-      <p className="text-2xl font-bold text-gray-900">{price}</p>
-    </div>
+        {/* Price */}
+        <div className="text-center border-t border-gray-100 pt-4">
+          {originalPrice && <p className="text-gray-500 line-through text-sm mb-1">{originalPrice}</p>}
+          <p className="text-2xl font-bold text-gray-900">{price}</p>
+        </div>
 
-    {/* Button that slides in */}
-    <div className="overflow-hidden transition-all duration-300 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0">
-      <button className="w-full mt-4 py-3 bg-green-600 text-white font-semibold hover:bg-green-700 transition-colors duration-300">
-        Order Now
-      </button>
-    </div>
-  </CardContent>
-</Card>
-
+        {/* Button that slides in */}
+        <div
+          className={`overflow-hidden transition-all duration-300 ${
+            isExpanded
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0"
+          }`}
+        >
+          <button className="w-full mt-4 py-3 bg-green-600 text-white font-semibold hover:bg-green-700 transition-colors duration-300">
+            Order Now
+          </button>
+        </div>
+      </CardContent>
+    </Card>
   )
 }
 
@@ -252,6 +246,17 @@ const fullApparelList1 = [
   { item: "Sport Jacket", price: "$6.00" },
   { item: "Sweater", price: "$6.00" },
   { item: "Suit (Jacket + Pants)", price: "$12.00" },
+]
+
+const additionalItems = [
+  { item: "Tie", price: "$4.00" },
+  { item: "Scarf", price: "$5.00" },
+  { item: "Gloves", price: "$8.00" },
+  { item: "Hat", price: "$6.00" },
+  { item: "Belt", price: "$7.00" },
+  { item: "Curtains", price: "$15.00" },
+  { item: "Tablecloth", price: "$12.00" },
+  { item: "Pillow Case", price: "$3.00" },
 ]
 
 const PricingSection = () => {
@@ -291,41 +296,35 @@ const PricingSection = () => {
             </p>
           </div>
 
-         <Card className="mb-12 sm:mb-16 lg:mb-20 shadow-lg border-none min-h-[600px]">
-  <CardContent className="p-3 sm:p-6 lg:p-8">
-    <Tabs
-      defaultValue="popular"
-      onValueChange={(val) => setActiveTab(val)}
-      className="w-full"
-    >
-      <div className="flex justify-center mb-4 sm:mb-6 lg:mb-8">
-<TabsList className="flex flex-col sm:grid sm:grid-cols-3 bg-gray-50 gap-2 sm:gap-0 p-2 w-full max-w-4xl">
-  {[
-    { value: "popular", label: "Most Popular Items" },
-    { value: "full", label: "Full Apparel List" },
-    { value: "other", label: "Additional Items" },
-  ].map((tab) => (
-    <TabsTrigger
-      key={tab.value}
-      value={tab.value}
-      className={`
-        w-full px-4 sm:px-6 lg:px-8 py-3 sm:py-3 lg:py-4 text-sm sm:text-sm lg:text-base font-semibold
-        min-h-[48px] sm:min-h-[50px] lg:min-h-[60px]
-        bg-white text-black
-        transition-all duration-200 border border-transparent
-        hover:bg-green-50 hover:text-green-700
-        touch-manipulation cursor-pointer
-        rounded-none
-        data-[state=active]:bg-green-700 data-[state=active]:text-white data-[state=active]:border-green-700
-      `}
-    >
-      <span className="text-center leading-tight">{tab.label}</span>
-    </TabsTrigger>
-  ))}
-</TabsList>
-
-
-      </div>
+          <Card className="mb-12 sm:mb-16 lg:mb-20 shadow-lg border-none min-h-[600px]">
+            <CardContent className="p-3 sm:p-6 lg:p-8">
+              <Tabs value={activeTab} onValueChange={(val) => setActiveTab(val)} className="w-full">
+                <div className="flex justify-center mb-4 sm:mb-6 lg:mb-8">
+                  <TabsList className="flex flex-col sm:grid sm:grid-cols-3 bg-gray-50 gap-2 sm:gap-0 p-2 w-full max-w-4xl">
+                    {[
+                      { value: "popular", label: "Most Popular Items" },
+                      { value: "full", label: "Full Apparel List" },
+                      { value: "other", label: "Additional Items" },
+                    ].map((tab) => (
+                      <TabsTrigger
+                        key={tab.value}
+                        value={tab.value}
+                        className={`
+                          w-full px-4 sm:px-6 lg:px-8 py-3 sm:py-3 lg:py-4 text-sm sm:text-sm lg:text-base font-semibold
+                          min-h-[48px] sm:min-h-[50px] lg:min-h-[60px]
+                          bg-white text-black
+                          transition-all duration-200 border border-transparent
+                          hover:bg-green-50 hover:text-green-700
+                          touch-manipulation cursor-pointer
+                          rounded-none
+                          data-[state=active]:bg-green-700 data-[state=active]:text-white data-[state=active]:border-green-700
+                        `}
+                      >
+                        <span className="text-center leading-tight">{tab.label}</span>
+                      </TabsTrigger>
+                    ))}
+                  </TabsList>
+                </div>
 
                 <TabsContent value="popular" className="mt-4 sm:mt-6">
                   <div className="space-y-0">
@@ -395,7 +394,7 @@ const PricingSection = () => {
 
                 <TabsContent value="other" className="mt-4 sm:mt-6">
                   <div className="space-y-0">
-                    {[...mostPopularItems, ...fullApparelList1].map((item, index) => (
+                    {additionalItems.map((item, index) => (
                       <div
                         key={index}
                         className="flex justify-between items-center border-b border-gray-200 py-4 sm:py-4 hover:bg-gray-50 transition-colors touch-manipulation"
@@ -446,7 +445,6 @@ const PricingSection = () => {
               originalPrice="$349.00"
               price="$349.00"
             />
-
             <PackageCard
               icon={ClipboardList}
               title="Enterprise Package"
@@ -464,7 +462,6 @@ const PricingSection = () => {
               originalPrice="$399.00"
               price="$399.00"
             />
-
             <PackageCard
               icon={Zap}
               title="Premium Package"

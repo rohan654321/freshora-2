@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import React from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
 // Define the type for a team member
 type TeamMember = {
@@ -101,3 +101,7 @@ const TeamSection: React.FC = () => {
 };
 
 export default TeamSection;
+function useEffect(arg0: () => () => void, arg1: (number | (() => void))[]) {
+  throw new Error('Function not implemented.');
+}
+

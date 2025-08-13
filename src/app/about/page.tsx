@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Phone, Clock, CreditCard, Leaf, CheckCircle2 } from "lucide-react";
 import dynamic from "next/dynamic";
+import img01 from '../public/images/img01.jpg';
 
 // Dynamically import components with SSR disabled
 const LaundryStats = dynamic(() => import("@/component/LaundryStatus"), { ssr: false });
@@ -40,19 +41,18 @@ export default function AboutSection() {
             <div className="relative order-2 lg:order-1">
               <div className="relative">
                 <Image
-                  src="/images/img01.jpg"
-                  alt="Laundry Experience"
-                  width={600}
-                  height={550}
-                  className="w-full h-auto rounded-lg shadow-xl"
-                />
-                <Image
-                  className="absolute -top-3 -right-6 sm:-top-5 sm:-right-10 w-16 sm:w-20 lg:w-24 h-auto opacity-80 hidden sm:block"
-                  src="/images/arrow-img-right.png"
-                  alt="Arrow"
-                  width={100}
-                  height={100}
-                />
+  src={img01}
+  alt="Laundry Experience"
+  fill
+  className="shadow-lg object-cover"
+/>
+               <Image
+  src="/images/arrow-img-right.png" // make sure this exists in public/images
+  alt="Arrow"
+  width={100}  // specify intrinsic width
+  height={100} // specify intrinsic height
+  className="absolute -top-3 -right-6 sm:-top-5 sm:-right-10 w-16 sm:w-20 lg:w-24 h-auto opacity-80 hidden sm:block"
+/>
                 <div className="absolute -bottom-4 -left-4 sm:-bottom-6 sm:-left-6 lg:-bottom-8 lg:-left-8 bg-white rounded-lg p-3 sm:p-4 lg:p-6 shadow-2xl text-center">
                   <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-cyan-500">25</div>
                   <div className="text-xs sm:text-sm text-gray-700 leading-tight">

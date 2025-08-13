@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState, useEffect } from 'react';
 
 // Define the type for a team member
 type TeamMember = {
@@ -15,7 +15,7 @@ const teamMembers: TeamMember[] = [
   {
     name: 'Justin Stein',
     title: 'Service Manager',
-    image: '/images/pesonal-info-img01.jpg', // Save this image in /public/team
+    image: '/images/pesonal-info-img01.jpg',
   },
   {
     name: 'Amy Hellickson',
@@ -45,7 +45,7 @@ const TeamSection: React.FC = () => {
         clearTimeout(timeoutRef.current);
       }
     };
-    
+
     resetTimeout();
     timeoutRef.current = setTimeout(nextSlide, 5000); // Change slide every 5 seconds
 
@@ -86,7 +86,6 @@ const TeamSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Styling for pagination dots */}
       <style jsx global>{`
         .custom-pagination .swiper-pagination-bullet {
           background: #d1d5db;
@@ -101,7 +100,3 @@ const TeamSection: React.FC = () => {
 };
 
 export default TeamSection;
-function useEffect(arg0: () => () => void, arg1: (number | (() => void))[]) {
-  throw new Error('Function not implemented.');
-}
-

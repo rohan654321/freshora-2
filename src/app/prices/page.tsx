@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CheckCircle, ShoppingCart, ClipboardList, Zap, ChevronLeft, ChevronRight } from "lucide-react"
 import Link from "next/link"
+import PickupForm from "@/component/SchedulePickupModal"
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -70,6 +71,11 @@ interface ServicePriceCardProps {
 }
 
 const ServicePriceCard: React.FC<ServicePriceCardProps> = ({ icon: Icon, title, price, description }) => {
+ 
+  // function setShowForm(arg0: boolean) {
+  //   throw new Error("Function not implemented.")
+  // }
+
   return (
     <Card className="group relative flex flex-col items-center justify-between p-4 sm:p-6 text-center h-64 sm:h-72 md:h-80 transition-all duration-500 hover:scale-105 bg-white overflow-hidden shadow-none border-none">
       <div className="flex flex-col items-center justify-center flex-1 space-y-3 sm:space-y-4 transition-all duration-500 group-hover:space-y-2">
@@ -83,9 +89,10 @@ const ServicePriceCard: React.FC<ServicePriceCardProps> = ({ icon: Icon, title, 
         </div>
       </div>
       <div className="absolute bottom-3 sm:bottom-4 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:translate-y-0 translate-y-4">
-        <button className="px-4 sm:px-6 py-2 bg-green-600 text-white text-xs sm:text-sm font-semibold rounded-lg hover:bg-green-700 transition-colors duration-300 shadow-md">
+        <button       className="px-4 sm:px-6 py-2 bg-green-600 text-white text-xs sm:text-sm font-semibold rounded-lg hover:bg-green-700 transition-colors duration-300 shadow-md">
           Order Now
         </button>
+        
       </div>
     </Card>
   )
@@ -179,8 +186,12 @@ interface PackageCardProps {
 
 const PackageCard: React.FC<PackageCardProps> = ({ icon: Icon, title, features, price, originalPrice }) => {
   const [isExpanded, setIsExpanded] = useState(false)
+   const [, setMobileOpen] = useState(false)
+  
+  const [showForm, setShowForm] = useState(false)
 
   return (
+    <>
     <Card
       className="group relative flex flex-col transition-all duration-300 hover:shadow-lg bg-white border-none cursor-pointer"
       onClick={() => setIsExpanded(!isExpanded)}
@@ -223,12 +234,24 @@ const PackageCard: React.FC<PackageCardProps> = ({ icon: Icon, title, features, 
               : "opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0"
           }`}
         >
-          <button className="w-full mt-4 py-3 bg-green-600 text-white font-semibold hover:bg-green-700 transition-colors duration-300">
-            Order Now
-          </button>
+       <button
+  onClick={(e) => {
+    e.stopPropagation(); // prevents Card onClick from firing
+    setShowForm(true);
+    setMobileOpen(false);
+  }}
+  className="w-full mt-4 py-3 bg-green-600 text-white font-semibold hover:bg-green-700 transition-colors duration-300"
+>
+  Order Now
+</button>
+
+          <PickupForm open={showForm} onClose={() => setShowForm(false)} />
         </div>
       </CardContent>
     </Card>
+    {showForm && <PickupForm open={showForm} onClose={() => setShowForm(false)} />}
+
+    </>
   )
 }
 
@@ -427,7 +450,8 @@ const PricingSection = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
+         <div className="flex justify-center gap-6 sm:gap-11 flex-wrap">
+
             <PackageCard
               icon={ShoppingCart}
               title="Standard Package"
@@ -445,7 +469,7 @@ const PricingSection = () => {
               originalPrice="$349.00"
               price="$349.00"
             />
-            <PackageCard
+            {/* <PackageCard
               icon={ClipboardList}
               title="Enterprise Package"
               description="80 Clothes Per Month"
@@ -461,7 +485,7 @@ const PricingSection = () => {
               ]}
               originalPrice="$399.00"
               price="$399.00"
-            />
+            /> */}
             <PackageCard
               icon={Zap}
               title="Premium Package"

@@ -30,7 +30,7 @@ export default function LaundryService() {
       {/* Left Image */}
       <div className="w-full md:w-1/2 mb-8 md:mb-0">
         <Image
-          src="/Images/box02-img04.jpg" // replace with actual path
+          src="/images/box02-img04.jpg" // replace with actual path
           alt="Laundry"
           width={700}
           height={500}

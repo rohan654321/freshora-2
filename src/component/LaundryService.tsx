@@ -12,21 +12,17 @@ const featuresRight = [
 
 export default function LaundryService() {
   return (
-    <section className="w-full bg-white py-12 sm:py-16 lg:py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
-          {/* Left Image */}
-          <div className="w-full lg:w-1/2 order-2 lg:order-1">
-            <div className="relative w-full max-w-md mx-auto lg:max-w-none">
-              <Image
-                src="/Images/box02-img04.jpg"
-                alt="Commercial Laundry Service"
-                width={700}
-                height={500}
-                className="rounded-lg w-full h-auto object-cover shadow-lg"
-              />
-            </div>
-          </div>
+    <section className="w-full flex flex-col md:flex-row items-center bg-white px-4 md:px-20 py-10">
+      {/* Left Image */}
+      <div className="w-full md:w-1/2 mb-8 md:mb-0">
+        <Image
+          src="/Images/box02-img04.jpg" // replace with actual path
+          alt="Laundry"
+          width={700}
+          height={500}
+          className="rounded-lg w-full h-auto object-cover"
+        />
+      </div>
 
           {/* Right Content */}
           <div className="w-full lg:w-1/2 text-center lg:text-left order-1 lg:order-2">

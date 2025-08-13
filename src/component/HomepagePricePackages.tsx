@@ -67,21 +67,26 @@ const PackageCard: React.FC<PackageCardProps> = ({ icon: Icon, title, descriptio
 
 const HomepagePricePackages = () => {
   return (
-    <div className="relative overflow-hidden" style={{ backgroundColor: "#f3f6f4" }}>
+    // 1. Add a relative parent div with the background color and overflow-hidden
+    <div className="relative overflow-hidden" style={{ backgroundColor: '#f3f6f4' }}>
+      
+      {/* 2. Add the decorative shape Image component */}
       <Image
-        src="/decorative-background-shape.png"
+        // IMPORTANT: Replace 'price-shape.png' with your actual image file name
+        src="/images/price-shape.png" 
         alt="Decorative background shape"
         fill
         style={{ objectFit: "contain", objectPosition: "bottom right" }}
-        className="-z-0 opacity-40"
+        className="-z-0 opacity-40" // Use z-index to place it behind content
       />
-
-      <section className="relative z-10 py-12 sm:py-16 lg:py-20 bg-transparent">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8 sm:mb-12">
-            <h4 className="text-green-600 font-medium mb-2 text-sm sm:text-base">[ What we offer ]</h4>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-4">Price Packages</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
+      
+      {/* 3. Make the section itself transparent and ensure it's in front of the shape */}
+      <section className="relative z-10 py-16 bg-transparent">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h4 className="text-green-600 font-medium mb-2">[ What we offer ]</h4>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Price Packages</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
               Our prices are simple and affordable which are easy on pocket in comparison with the high street prices.
             </p>
           </div>

@@ -5,6 +5,7 @@ import { FaTshirt, FaWater, FaUserCheck } from "react-icons/fa"
 import { GiClothes } from "react-icons/gi"
 import Image from "next/image"
 import { Phone, Clock, CreditCard, Leaf, CheckCircle2 } from "lucide-react"
+import img01 from '../public/images/img01.jpg';
 
 const statsData = [
   {
@@ -54,13 +55,12 @@ export default function LaundryStats() {
           <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 xl:gap-16">
             <div className="relative flex-shrink-0 w-full lg:w-1/2 max-w-lg lg:max-w-none">
               <div className="relative aspect-[4/3] sm:aspect-[3/2] lg:aspect-[4/3]">
-                <Image
-                  src="/images/img01.jpg?height=400&width=600&text=Laundry+Experience"
-                  alt="Laundry Experience"
-                  fill
-                  className=" shadow-lg object-cover"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
-                />
+              <Image
+  src={img01}
+  alt="Laundry Experience"
+  fill
+  className="shadow-lg object-cover"
+/>
                 <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 lg:bottom-6 lg:right-6 bg-green-600 text-white rounded-full w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 flex flex-col items-center justify-center text-center shadow-lg">
                   <span className="text-lg sm:text-2xl lg:text-3xl font-extrabold">25</span>
                   <span className="text-xs sm:text-sm text-center leading-tight px-1">years of experience</span>

@@ -26,10 +26,7 @@ const navItems: NavItem[] = [
   {
     title: "About Us",
     href: "/about",
-    subItems: [
-      { title: "Our Story", href: "/about/story" },
-      { title: "Team", href: "/about/team" },
-    ],
+    
   },
   {
     title: "Services",

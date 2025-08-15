@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CheckCircle, ShoppingCart, ClipboardList, Zap, ChevronLeft, ChevronRight } from "lucide-react"
 import Link from "next/link"
 import PickupForm from "@/component/SchedulePickupModal"
+import AnimatedParticles from "@/component/AnimatedParticles"
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -192,6 +193,7 @@ const PackageCard: React.FC<PackageCardProps> = ({ icon: Icon, title, features, 
 
   return (
     <>
+    <AnimatedParticles zIndex={5} />
     <Card
       className="group relative flex flex-col transition-all duration-300 hover:shadow-lg bg-white border-none cursor-pointer"
       onClick={() => setIsExpanded(!isExpanded)}
@@ -466,8 +468,8 @@ const PricingSection = () => {
                 "1 Towel",
                 "1 Set of Sheets",
               ]}
-              originalPrice="$349.00"
-              price="$349.00"
+              originalPrice="349.00"
+              price="349.00"
             />
             {/* <PackageCard
               icon={ClipboardList}
@@ -500,8 +502,8 @@ const PricingSection = () => {
                 "2 Towel",
                 "3 Set of Sheets",
               ]}
-              originalPrice="$449.00"
-              price="$449.00"
+              originalPrice="449.00"
+              price="449.00"
               isFeatured={true}
             />
           </div>

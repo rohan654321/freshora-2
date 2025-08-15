@@ -1,9 +1,14 @@
+// app/layout.tsx
+// Server Component (no "use client" here)
+
 import type { Metadata } from "next";
 import { CartProvider } from "./context/cart-context";
 import "./globals.css";
 import Navbar from "@/component/NavBar";
 import Footer from "@/component/Footer";
 import AnimatedParticles from "@/component/AnimatedParticles"; 
+// import { ToastProvider } from "@/components/ui/toast";
+import { ToastProvider } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Freshora Laundry",
@@ -17,48 +22,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <style>{`
-          @keyframes rise-and-sway {
-            0% {
-              transform: translateY(0) translateX(0) scale(0.5);
-              opacity: 0;
-            }
-            10% {
-              opacity: 0.7;
-            }
-            90% {
-              opacity: 0.7;
-            }
-            100% {
-              transform: translateY(-100vh) translateX(calc(var(--left-end) - var(--left-start))) scale(1);
-              opacity: 0;
-            }
-          }
-          .particle {
-            position: absolute;
-            bottom: -150px;
-            width: var(--size);
-            height: var(--size);
-            left: var(--left-start);
-            animation: rise-and-sway var(--duration) linear var(--delay) infinite;
-            user-select: none;
-            pointer-events: none;
-          }
-          body {
-            background-color: transparent;
-          }
-        `}</style>
-      </head>
       <body>
         <CartProvider>
-          <AnimatedParticles />
-          <div className="relative z-10 bg-[#f7fafc]">
-            <Navbar/>
-            <main>
+          {/* ✅ Global particles - higher zIndex so they show above backgrounds */}
+          <AnimatedParticles zIndex={5} />
+
+          {/* ✅ Content wrapper with higher z-index than particles if needed */}
+          <div className="relative z-10 min-h-screen">
+            <Navbar />
+            <main className="relative z-20">
+          <ToastProvider>
                 {children}
+              </ToastProvider>
             </main>
-            <Footer/>
+            <Footer />
           </div>
         </CartProvider>
       </body>

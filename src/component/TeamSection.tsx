@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
 // Define the type for a team member

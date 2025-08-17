@@ -4,9 +4,9 @@ import { CheckCircle2, Clock, CreditCard, Leaf, Phone } from "lucide-react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import { Phone, Clock, CreditCard, Leaf, CheckCircle2 } from "lucide-react";
-import dynamic from "next/dynamic";
-import img01 from '../public/images/img01.jpg';
+import AnimatedParticles from "@/component/AnimatedParticles";
+// import img01 from '../../../public/images/img01.jpg';
+
 
 // Dynamically import components with SSR disabled
 const LaundryStats = dynamic(() => import("@/component/LaundryStatus"), { ssr: false });
